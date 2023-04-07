@@ -40,37 +40,51 @@ const getTipoEquipos = async (req = request,
 }
 
 // Actualizar 
-
-
-
-
-
-        
-        
-const putTipoEquipos = async (req = request, res = response) => {
+const updateTipoEquipoByID = async (req = request,
+    res = response) => {
     try{
-        const{nombre} = req.query
-        const tipoEqu = await TipoEquipo.find({nombre,estado, fechaCreacion, fechaActualizacion }).req.body
-        return res.json(tipoEqu)
-        console.log(id );
+        console.log(req.body)
+        console.log(req.params)
+        const data = req.body
+        const id = req.params.id
+        data.fechaActualizacion = new Date()
+        console.log(data)
+        const tipoEquipo = await TipoEquipo.findByIdAndUpdate(id, data, {new: true})
+        return res.json(tipoEquipo)
     }catch(e){
-     return res.status(500).json({msg: 'error'})
+        console.log(e)
+        return res.status(500).json({msg: e})  
     }
-        
-        
 }
+
+
+
+
+        
+        
 
 
 // Elminar 
 
     const deleteTipoEquipo = async(req = request, res = response)=>{
-       const {id} = req.body
-       if(id==id){
-         return res.body
-       }
-       else{
-          console.log(' error ')
-       }
+
+         try{
+         const id=req.params.id
+         await data.TipoEquipo.destroy({
+            where:{
+                id,
+            },
+            
+         })
+         }catch(e){
+            console.log(e)
+            return res.status(500).json({msg: e})  
+         }
+
+
+
+
+
        
     }
 
@@ -79,6 +93,13 @@ const putTipoEquipos = async (req = request, res = response) => {
          
       
  
+/**const {id} = req.body
+       if(id==id){
+         return res.body
+       }
+       else{
+          console.log(' error ')
+       }
+        */
 
-
-module.exports = { createTipoEquipo, getTipoEquipos, putTipoEquipos, deleteTipoEquipo}
+module.exports = { createTipoEquipo, getTipoEquipos, updateTipoEquipoByID, deleteTipoEquipo, deleteTipoEquipo}

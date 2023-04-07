@@ -2,6 +2,7 @@ const Usuario = require('../models/usuario')
 const { request, response} = require('express')
 
 // crear
+
 const createUsuario= async (req = request, 
     res = response) => {
     try{
@@ -20,7 +21,17 @@ const createUsuario= async (req = request,
         console.log(e)
         return res.status(500).json({e})
     }
-}
+
+    }
+
+
+
+
+
+
+
+
+
 //listar todos
 const getUsuarios= async (req = request, 
     res = response) => {
@@ -35,5 +46,23 @@ const getUsuarios= async (req = request,
         }
 }
 
+const updateUsuarioByID = async (req = request,
+    res = response) => {
+    try{
+        console.log(req.body)
+        console.log(req.params)
+        const data = req.body
+        const id = req.params.id
+        data.fechaActualizacion = new Date()
+        console.log(data)
+        const usuario = await Usuario.findByIdAndUpdate(id, data, {new: true})
+        return res.json(usuario)
+    }catch(e){
+        console.log(e)
+        return res.status(500).json({msg: e})  
+    }
+}
 
-module.exports = {createUsuario, getUsuarios}
+
+
+module.exports = {createUsuario, getUsuarios,updateUsuarioByID}

@@ -41,5 +41,22 @@ const getEstados = async (req = request,
         }
 }
 
+const updateEstadoByID = async (req = request,
+    res = response) => {
+    try{
+        console.log(req.body)
+        console.log(req.params)
+        const data = req.body
+        const id = req.params.id
+        data.fechaActualizacion = new Date()
+        console.log(data)
+        const estado = await Estado.findByIdAndUpdate(id, data, {new: true})
+        return res.json(estado)
+    }catch(e){
+        console.log(e)
+        return res.status(500).json({msg: e})  
+    }
+}
 
-module.exports = {createEstado, getEstados}
+
+module.exports = {createEstado, getEstados, updateEstadoByID}

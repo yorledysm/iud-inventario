@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const {createTipoEquipo, getTipoEquipos, putTipoEquipos, deleteTipoEquipo} = require('../controllers/tipoEquipo')
+const {createTipoEquipo, getTipoEquipos, updateTipoEquipoByID, deleteTipoEquipo} = require('../controllers/tipoEquipo')
 
 const router = Router()
 
@@ -11,8 +11,9 @@ router.get('/', getTipoEquipos)
 
  // actualizar
 
- router.put('/',putTipoEquipos)
+ router.put('/',updateTipoEquipoByID)
  // elimanar 
+ 
 
  router.delete('/', deleteTipoEquipo)
 

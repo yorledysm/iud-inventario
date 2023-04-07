@@ -8,7 +8,7 @@ const createMarca = async (req = request,
         const nombre = req.body.nombre 
             ? req.body.nombre.toUpperCase()
             : ''
-        const marcaDB = await Marca.findOne({nombre})//select * from tipoEquipo where nombre=?
+        const marcaDB = await Marca.findOne({nombre})//select 
         
         if(marcaDB){
             return res.status(400).json({msg: 'Ya existe'})
@@ -41,4 +41,21 @@ const getMarcas = async (req = request,
         }
 }
 
-module.exports = {createMarca, getMarcas}
+const updateMarcaByID = async (req = request,
+    res = response) => {
+    try{
+        console.log(req.body)
+        console.log(req.params)
+        const data = req.body
+        const id = req.params.id
+        data.fechaActualizacion = new Date()
+        console.log(data)
+        const marca = await Marca.findByIdAndUpdate(id, data, {new: true})
+        return res.json(tipoEquipo)
+    }catch(e){
+        console.log(e)
+        return res.status(500).json({msg: e})  
+    }
+}
+
+module.exports = {createMarca, getMarcas, updateMarcaByID }
